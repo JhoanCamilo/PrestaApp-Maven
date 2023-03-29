@@ -268,9 +268,9 @@ public class Principal extends javax.swing.JFrame {
     Conexion funciones = new Conexion();
     
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
-        /*Gestion Management = new Gestion();
+        Gestion Management = new Gestion();
         Management.setVisible(true);
-        Management.setDefaultCloseOperation(DISPOSE_ON_CLOSE);*/
+        Management.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_botonGestionarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
@@ -287,13 +287,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonPagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPagaActionPerformed
-       /*ModuloPago pagar = new ModuloPago();
-       pagar.pagar(campoPagar, CampoMeses, CampoPago, campoNombre);*/
+       ModuloPago pagar = new ModuloPago();
+       pagar.pagar(campoPagar, CampoMeses, CampoPago, campoNombre);
     }//GEN-LAST:event_botonPagaActionPerformed
 
     private void botonGenerarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarDocActionPerformed
-        /*GenerarDocumento generar = new GenerarDocumento();
-        generar.GenerarReporte();*/
+        GenerarDocumento generar = new GenerarDocumento();
+        generar.GenerarReporte();
     }//GEN-LAST:event_botonGenerarDocActionPerformed
 
     /**
