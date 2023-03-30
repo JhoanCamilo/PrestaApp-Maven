@@ -166,13 +166,30 @@ public class FuncionamientoPrincipal {
     }
     
     void sumarMeses(String cliente, int mesesDebidos) {
-        String orden = "UPDATE clientes SET meses_debe = '" + mesesDebidos + "', alterado = 'si' WHERE nombre = '" + cliente + "' AND alterado = 'no'";
+        String orden = "UPDATE clientes SET meses_debe = '" + mesesDebidos + "', alterado = 'si'  WHERE nombre = '" + cliente + "'";
         System.out.println("Actualizando datos de " + cliente + ", Meses que debe: " + mesesDebidos);
 
         try {
             con = DriverManager.getConnection(URL, Usuario, Clave);
             stmt = con.createStatement();
             stmt.executeUpdate(orden);
+                     
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    void sumarIntereses(int dia, String nombre){
+        Connection cone;
+        Statement stat;
+        ResultSet risp;
+        int diaPasado = dia - 1;
+        String orden = "UPDATE clientes SET alterado = 'no' WHERE dia_de_pago = " + diaPasado;
+
+        try {
+            cone = DriverManager.getConnection(URL, Usuario, Clave);
+            stat = cone.createStatement();
+            stat.executeUpdate(orden);
                      
         } catch (SQLException e) {
             e.printStackTrace();
@@ -182,7 +199,6 @@ public class FuncionamientoPrincipal {
     void reiniciar(int dia){
         Connection cone;
         Statement stat;
-        ResultSet risp;
         int diaPasado = dia - 1;
         String orden = "UPDATE clientes SET alterado = 'no' WHERE dia_de_pago = " + diaPasado;
 
@@ -203,7 +219,7 @@ public class FuncionamientoPrincipal {
         Calendar fecha = Calendar.getInstance();
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
         
-        String query = "SELECT nombre, meses_debe FROM clientes WHERE dia_de_pago = " + dia + " ADN estado = activo";
+        String query = "SELECT nombre, meses_debe, total_prestado,total_interes,tasa_interes FROM clientes WHERE dia_de_pago = " + dia + " AND estado = 'activo' AND alterado = 'no'";
         
         try {
             conn = DriverManager.getConnection(URL, Usuario, Clave);
@@ -213,10 +229,13 @@ public class FuncionamientoPrincipal {
             while(ris.next()){
                 String cliente = ris.getString("nombre");
                 int mesesQueDebe = Integer.parseInt(ris.getString("meses_debe")) + 1;
+                int faltaPagar = Integer.parseInt(ris.getString("total_prestado"));
+                double interes = Double.parseDouble(ris.getString("tasa_interes"));
+                int interesesTotal = Integer.parseInt(ris.getString("total_interes"));
                 sumarMeses(cliente, mesesQueDebe);
                 reiniciar(dia);
             }
 
-         } catch (SQLException e) {}
+         } catch (SQLException e) {System.out.println(e);}
     }
 }

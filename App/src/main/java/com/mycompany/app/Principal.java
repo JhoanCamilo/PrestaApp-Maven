@@ -16,7 +16,7 @@ public class Principal extends javax.swing.JFrame {
     FuncionamientoPrincipal funcionesPrincipal = new FuncionamientoPrincipal();
     public Principal() {
         initComponents();
-        //funcionesPrincipal.sumarMes();
+        funcionesPrincipal.sumarMes();
         funcionesPrincipal.VerMesesAtrasados();
         funcionesPrincipal.llenarComboBox(inversionistas);
     }
@@ -265,7 +265,7 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    Conexion funciones = new Conexion();
+    //Conexion funciones = new Conexion();
     
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
         Gestion Management = new Gestion();
