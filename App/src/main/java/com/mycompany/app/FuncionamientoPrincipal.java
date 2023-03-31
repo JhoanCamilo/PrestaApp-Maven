@@ -179,7 +179,7 @@ public class FuncionamientoPrincipal {
         }
     }
     
-    void sumarIntereses(int dia, String nombre){
+    void sumarIntereses(int dia, String nombre, int interesAcumulado){
         Connection cone;
         Statement stat;
         ResultSet risp;
@@ -232,7 +232,9 @@ public class FuncionamientoPrincipal {
                 int faltaPagar = Integer.parseInt(ris.getString("total_prestado"));
                 double interes = Double.parseDouble(ris.getString("tasa_interes"));
                 int interesesTotal = Integer.parseInt(ris.getString("total_interes"));
+                int interesAcumulado = (int) (interesesTotal + (faltaPagar*interes));
                 sumarMeses(cliente, mesesQueDebe);
+                sumarIntereses(dia, cliente, interesAcumulado);
                 reiniciar(dia);
             }
 
