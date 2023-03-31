@@ -228,6 +228,7 @@ public class AgregarCliente extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         newCustomer.addCustomer(campoNombre, campoCedula, campoDireccion, campoTelCasa, campoTrabajo, campoTelTrabajo, campoMonto, campoDiaPago, campoTasaInteres, inversionistas);
+        newCustomer.addCustomerCont(campoNombre, campoCedula);
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     /**

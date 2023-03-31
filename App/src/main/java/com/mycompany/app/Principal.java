@@ -16,8 +16,8 @@ public class Principal extends javax.swing.JFrame {
     FuncionamientoPrincipal funcionesPrincipal = new FuncionamientoPrincipal();
     public Principal() {
         initComponents();
-        funcionesPrincipal.sumarMes();
-        funcionesPrincipal.VerMesesAtrasados();
+        //funcionesPrincipal.sumarMes();
+        //funcionesPrincipal.VerMesesAtrasados();
         funcionesPrincipal.llenarComboBox(inversionistas);
     }
 
@@ -279,7 +279,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void inversionistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inversionistasActionPerformed
         funcionesPrincipal.LLenarLista(inversionistas, listaClientes);
-        funcionesPrincipal.llenarComboBox(inversionistas);
+        //funcionesPrincipal.llenarComboBox(inversionistas);
     }//GEN-LAST:event_inversionistasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -288,7 +288,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void botonPagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPagaActionPerformed
        ModuloPago pagar = new ModuloPago();
-       pagar.pagar(campoPagar, CampoMeses, CampoPago, campoNombre);
+       //pagar.pagar(campoPagar, CampoMeses, CampoPago, campoNombre);
+       pagar.mesPago(CampoPago, campoNombre);
     }//GEN-LAST:event_botonPagaActionPerformed
 
     private void botonGenerarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarDocActionPerformed

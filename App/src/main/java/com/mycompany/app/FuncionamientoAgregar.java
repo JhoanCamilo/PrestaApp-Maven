@@ -3,7 +3,6 @@ package com.mycompany.app;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.Font;
@@ -106,7 +105,6 @@ public class FuncionamientoAgregar {
     }
     
     void addCustomer(JTextField campoNombre, JTextField campoCedula, JTextField campoDireccion, JTextField campoTelCasa, JTextField campoTrabajo, JTextField campoTelTrabajo, JTextField campoMonto, JTextField campoDiaPago, JTextField campoTasaInteres, JComboBox<String> inversionistas) {
-        
         String customerName = campoNombre.getText();
         String customerId = campoCedula.getText();
         String customerDir = campoDireccion.getText();
@@ -135,6 +133,21 @@ public class FuncionamientoAgregar {
         String order = "INSERT INTO clientes (nombre, cedula, direccion, telefono, trabajo, telefono_trabajo, codeudor, cedula_codeudor, direccion_codeudor, telefono_codeudor, telefono_trabajo_codeudor,"
                 + "codeudor_2, cedula_codeudor_2, direccion_codeudor_2, telefono_codeudor_2, telefono_trabajo_codeudor_2, codeudor_3, cedula_codeudor_3, direccion_codeudor_3, telefono_codeudor_3, telefono_trabajo_codeudor_3,"
                 + "total_prestado, interes, total_interes, inversionista, dia_de_pago, meses_debe, estado, alterado) VALUES ('" + customerName + "','" + customerId + "','" + customerDir + "','" + customerPhone + "','" + customerWork + "','" + customerWorkPho + "','" + codebtorName + "','" + codebtorId + "','" + codebtorDir + "','" + codebtorTel + "','" + codebtorTelTrab + "','" + codebtorName2 + "','" + codebtorId2 + "','" + codebtorDir2 + "','" + codebtorTel2 + "','" + codebtorTelTrab2 + "','" + codebtorName3 + "','" + codebtorId3 + "','" + codebtorDir3 + "','" + codebtorTel3 + "','" + codebtorTelTrab3 + "','" + customerAmount + "','" + customerRate + "','" + 0 + "','" + investor + "','" + customerPayDay + "','" + 0 + "','ACTIVO', 'NO')";
+        funciones.ValidarDriver();
+        try {
+            con = DriverManager.getConnection(URL, Usuario, Clave);
+            stmt = con.createStatement();
+            stmt.executeUpdate(order);
+            JOptionPane.showMessageDialog(null,"Cliente agregado correctamente","Agregar cliente", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException e) {e.printStackTrace();}
+    }
+    void addCustomerCont(JTextField campoNombre, JTextField campoCedula){
+        String nombre = campoNombre.getText();
+        String customerId = campoCedula.getText();
+        
+        String order = "INSERT INTO contabilidad (Nombre, Cedula, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre)"
+                + " VALUES ('" + nombre + "','" + customerId + "'," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 +"," + 0 + "," + 0 + ")";
         funciones.ValidarDriver();
         try {
             con = DriverManager.getConnection(URL, Usuario, Clave);

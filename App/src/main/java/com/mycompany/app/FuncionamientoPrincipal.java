@@ -182,10 +182,9 @@ public class FuncionamientoPrincipal {
     void sumarIntereses(int dia, String nombre, int interesAcumulado){
         Connection cone;
         Statement stat;
-        ResultSet risp;
         int diaPasado = dia - 1;
-        String orden = "UPDATE clientes SET alterado = 'no' WHERE dia_de_pago = " + diaPasado;
-
+        String orden = "UPDATE clientes SET total_intereses =" + interesAcumulado + "WHERE dia_de_pago = " + diaPasado + " AND nombre = '" + nombre + "'";
+        System.out.println("Se sumaron intereses");
         try {
             cone = DriverManager.getConnection(URL, Usuario, Clave);
             stat = cone.createStatement();
@@ -219,7 +218,7 @@ public class FuncionamientoPrincipal {
         Calendar fecha = Calendar.getInstance();
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
         
-        String query = "SELECT nombre, meses_debe, total_prestado,total_interes,tasa_interes FROM clientes WHERE dia_de_pago = " + dia + " AND estado = 'activo' AND alterado = 'no'";
+        String query = "SELECT nombre, meses_debe, total_prestado,total_interes,interes FROM clientes WHERE dia_de_pago = " + dia + " AND estado = 'activo' AND alterado = 'no'";
         
         try {
             conn = DriverManager.getConnection(URL, Usuario, Clave);
@@ -230,7 +229,7 @@ public class FuncionamientoPrincipal {
                 String cliente = ris.getString("nombre");
                 int mesesQueDebe = Integer.parseInt(ris.getString("meses_debe")) + 1;
                 int faltaPagar = Integer.parseInt(ris.getString("total_prestado"));
-                double interes = Double.parseDouble(ris.getString("tasa_interes"));
+                double interes = Double.parseDouble(ris.getString("interes"));
                 int interesesTotal = Integer.parseInt(ris.getString("total_interes"));
                 int interesAcumulado = (int) (interesesTotal + (faltaPagar*interes));
                 sumarMeses(cliente, mesesQueDebe);

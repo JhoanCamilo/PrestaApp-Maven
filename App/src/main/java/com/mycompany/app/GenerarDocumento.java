@@ -13,6 +13,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 
@@ -27,8 +31,14 @@ public class GenerarDocumento {
         ResultSet rs;
         Conexion funciones = new Conexion();
         
+        void balanceMesActual(){
+            Month mes = LocalDate.now().getMonth();
+            String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+            String orden = "";
+        }
+        
         void GenerarReporte() {
-            String orden = "SELECT nombre, meses_debe, dia_de_pago, estado FROM clientes";
+            String orden = "SELECT nombre, total_prestado, dia_de_pago, estado FROM clientes";
             funciones.ValidarDriver();
             Document documento = new Document();
             try {
