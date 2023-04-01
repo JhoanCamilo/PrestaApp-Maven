@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.tool.xml.html.ParaGraph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,11 +32,22 @@ public class GenerarDocumento {
         Statement stmt;
         ResultSet rs;
         Conexion funciones = new Conexion();
+        int sumatoria = 0;
         
         void balanceMesActual(){
             Month mes = LocalDate.now().getMonth();
             String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-            String orden = "";
+            String orden = "SELECT SUM(" + nombreMes + ") FROM contabilidad";
+            
+            
+            try {
+            con = DriverManager.getConnection(URL, Usuario, Clave);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(orden);
+            
+            sumatoria = Integer.parseInt(rs.getString("sum(" + nombreMes + ")"));
+                                
+            } catch (SQLException e) {e.printStackTrace();}
         }
         
         void GenerarReporte() {
@@ -73,6 +86,8 @@ public class GenerarDocumento {
                 } catch (SQLException e) {
                     System.out.println("Error: " + e);
                 }
+                Paragraph balance = new Paragraph(sumatoria);
+                documento.add(balance);
                 
                 documento.close();
                 JOptionPane.showMessageDialog(null, "Documento correctamente creador");
