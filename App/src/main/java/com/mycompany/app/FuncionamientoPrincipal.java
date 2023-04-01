@@ -182,8 +182,13 @@ public class FuncionamientoPrincipal {
     void sumarIntereses(int dia, String nombre, int interesAcumulado){
         Connection cone;
         Statement stat;
-        int diaPasado = dia - 1;
-        String orden = "UPDATE clientes SET total_intereses =" + interesAcumulado + "WHERE dia_de_pago = " + diaPasado + " AND nombre = '" + nombre + "'";
+        int diaPasado;
+        if (dia == 1) {
+            diaPasado = 30;
+        } else {
+            diaPasado = dia - 1;
+        }
+        String orden = "UPDATE clientes SET total_intereses = " + interesAcumulado + " WHERE dia_de_pago = " + diaPasado + " AND nombre = '" + nombre + "'";
         System.out.println("Se sumaron intereses");
         try {
             cone = DriverManager.getConnection(URL, Usuario, Clave);
