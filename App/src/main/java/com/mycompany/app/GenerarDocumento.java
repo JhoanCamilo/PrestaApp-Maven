@@ -80,12 +80,14 @@ public class GenerarDocumento {
                             tabla.addCell(rs.getString(4));
                         } while (rs.next());
                         documento.add(tabla);
+                        
                     } else {
                         JOptionPane.showMessageDialog(null, "Nada que mostrar");
                     }
                 } catch (SQLException e) {
                     System.out.println("Error: " + e);
                 }
+                
                 Paragraph balance = new Paragraph(sumatoria);
                 documento.add(balance);
                 
