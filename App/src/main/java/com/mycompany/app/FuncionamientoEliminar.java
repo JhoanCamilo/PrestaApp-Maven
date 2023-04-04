@@ -67,6 +67,7 @@ public class FuncionamientoEliminar {
             
        } catch (SQLException e){}
     }
+    
     void eliminarCliente(JComboBox<String> clientes , JLabel campoTelefono, JLabel campoDeuda) {
         String clientName = (String) clientes.getSelectedItem();
         String order = "DELETE FROM clientes WHERE nombre = '" + clientName + "'";
@@ -82,10 +83,31 @@ public class FuncionamientoEliminar {
                 clientes.setSelectedIndex(0);
                 campoTelefono.setText("----------------------------------------------------");
                 campoDeuda.setText("----------------------------------------------------");
+                eliminarClienteContabilidad(clientName);
             } catch (SQLException e) {e.printStackTrace();}
         } else {
             JOptionPane.showMessageDialog(null, "Operación cancelada");
         }
+    }
+    void eliminarClienteContabilidad(String cliente) {
+        String order = "DELETE FROM contabilidad WHERE nombre = '" + cliente + "'";
+                
+        try {
+            con = DriverManager.getConnection(URL, Usuario, Clave);
+            stmt = con.createStatement();
+            stmt.executeUpdate(order);
+
+        } catch (SQLException e) {e.printStackTrace();}
+    }
+    void eliminarClientesContabilidad(String inversionista) {
+        String order = "DELETE clientes, contabilidad FROM clientes JOIN contabilidad ON clientes.nombre = contabilidad.nombre WHERE clientes.inversionista = '" + inversionista + "'";
+                
+        try {
+            con = DriverManager.getConnection(URL, Usuario, Clave);
+            stmt = con.createStatement();
+            stmt.executeUpdate(order);
+
+        } catch (SQLException e) {e.printStackTrace();}
     }
     
     //Eliminar inversionista
@@ -95,7 +117,7 @@ public class FuncionamientoEliminar {
             con = DriverManager.getConnection(URL, Usuario, Clave);
             stmt = con.createStatement();
             rs = stmt.executeQuery(orden);
-
+            
             while (rs.next()) {
                 String textList = rs.getString("investor_name");
                 textList = textList.toLowerCase();
@@ -107,7 +129,9 @@ public class FuncionamientoEliminar {
     
     void confirmEliminarInversionista(JComboBox<String> inversionistas){
         String seleccion = (String) inversionistas.getSelectedItem();
-        String order = "DELETE clientes, inversionistas FROM clientes JOIN inversionistas ON clientes.inversionista = inversionistas.investor_name WHERE inversionistas.investor_name = '" + seleccion + "'";
+        String order0 = "DELETE clientes, contabilidad FROM clientes JOIN contabilidad ON clientes.nombre = contabilidad.nombre WHERE clientes.inversionista = '" + seleccion + "'";
+        String order1 = "DELETE FROM inversionistas WHERE investor_name = '" + seleccion + "'";
+        //String order2 = "DELETE FROM clientes WHERE inversionista = '" + seleccion + "'";
 
         String negrita = "<html>Se eliminarán <b>TODOS</b> los clientes que tenga este inversionista</html>";
         JLabel alerta = new JLabel(negrita);
@@ -119,7 +143,8 @@ public class FuncionamientoEliminar {
                 try {
                 con = DriverManager.getConnection(URL, Usuario, Clave);
                 stmt = con.createStatement();
-                stmt.executeUpdate(order);
+                stmt.executeUpdate(order0);
+                stmt.executeUpdate(order1);
                 JOptionPane.showMessageDialog(null, "Inversionista eliminado");
                 } catch (SQLException e) {e.printStackTrace();}
             } else {

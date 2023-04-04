@@ -9,7 +9,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.tool.xml.html.ParaGraph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,13 +33,13 @@ public class GenerarDocumento {
         ResultSet rs;
         Conexion funciones = new Conexion();
         String sumatoria;
+        String intereses;
         
         void balanceMesActual(){
             Month mes = LocalDate.now().getMonth();
             String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
             String orden = "SELECT SUM(" + nombreMes + ") FROM contabilidad";
             
-            
             try {
                 con = DriverManager.getConnection(URL, Usuario, Clave);
                 stmt = con.createStatement();
@@ -49,35 +48,28 @@ public class GenerarDocumento {
                 if (rs.next()) {
                     sumatoria = rs.getString(1);
                 }
-            
-                System.out.println("Sumatoria del mes actual es: " + sumatoria);
-                                
+                                            
             } catch (SQLException e) {e.printStackTrace();}
         }
         void calcularInteresesl(){
-            Month mes = LocalDate.now().getMonth();
-            String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-            String orden = "SELECT SUM(" + nombreMes + ") FROM contabilidad";
-            
-            
+            String orden = "SELECT SUM(total_interes) FROM clientes";
+                        
             try {
                 con = DriverManager.getConnection(URL, Usuario, Clave);
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(orden);
             
                 if (rs.next()) {
-                    sumatoria = rs.getString(1);
+                    intereses = rs.getString(1);
                 }
-            
-                System.out.println("Sumatoria del mes actual es: " + sumatoria);
-                                
+                                            
             } catch (SQLException e) {e.printStackTrace();}
         }
         
         void GenerarReporte() {
             balanceMesActual();
-            //String orden = "SELECT nombre, cedula, enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre FROM contabilidad";
-            String orden = "select clientes.nombre, clientes.cedula, contabilidad.enero, contabilidad.febrero, contabilidad.marzo, contabilidad.abril, contabilidad.mayo, contabilidad.junio, contabilidad.julio, contabilidad.agosto, contabilidad.septiembre, contabilidad.octubre, contabilidad.noviembre, contabilidad.diciembre from clientes join contabilidad on contabilidad.nombre = clientes.nombre where clientes.estado = 'activo'";
+            calcularInteresesl();
+            String orden = "select clientes.nombre, clientes.cedula, contabilidad.enero, contabilidad.febrero, contabilidad.marzo, contabilidad.abril, contabilidad.mayo, contabilidad.junio, contabilidad.julio, contabilidad.agosto, contabilidad.septiembre, contabilidad.octubre, contabilidad.noviembre, contabilidad.diciembre from clientes join contabilidad on contabilidad.idCliente = clientes.id where clientes.estado = 'activo' ORDER BY nombre";
             Month mes = LocalDate.now().getMonth();
             String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
             funciones.ValidarDriver();
@@ -114,7 +106,9 @@ public class GenerarDocumento {
                     stmt = con.createStatement();
                     rs = stmt.executeQuery(orden);
                     Paragraph balance = new Paragraph("Balance para el mes de " +  nombreMes + ": " + sumatoria);
+                    Paragraph intereses = new Paragraph("Intereses hasta la fecha: " + this.intereses);
                     Paragraph notice = new Paragraph("Esta tabla solo muestra los clientes cuyo estado es ACTIVO.");
+                    Paragraph duplicados = new Paragraph("Si hay registros repetidos, significa que el mismo cliente está registrado 2 o más veces en uno o más inversionistas.");
                     
                     if (rs.next()) {
                         do {                            
@@ -133,13 +127,18 @@ public class GenerarDocumento {
                             tabla.addCell(rs.getString("Noviembre"));
                             tabla.addCell(rs.getString("Diciembre"));
                         } while (rs.next());
-                        documento.add(tabla);
-                        documento.add(notice);
+                        
                         
                     } else {
                         JOptionPane.showMessageDialog(null, "Nada que mostrar");
                     }
+                     
+                     documento.add(tabla);
                      documento.add(balance);
+                     documento.add(intereses);
+                     documento.add(notice);
+                     documento.add(duplicados);
+                     
                 } catch (SQLException e) {
                     System.out.println("Error: " + e);
                 }

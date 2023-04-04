@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
-import java.util.Calendar;
 import java.util.Locale;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -43,8 +42,8 @@ public class ModuloPago {
                     stmt = con.createStatement();
                     stmt.executeUpdate(orden);
                     JOptionPane.showMessageDialog(null, "Pago correctamente hecho","Pagar cuota", JOptionPane.INFORMATION_MESSAGE);
+                    mesPago(campoPago, CampoNombre);
                     campoPago.setText("");
-
                 } catch (SQLException e) { System.out.println(e);}
          }
         
@@ -53,14 +52,12 @@ public class ModuloPago {
             String nombreMes = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
             String nombre = CampoNombre.getText();
             int pagado = Integer.parseInt(campoPago.getText());
-            System.out.println(nombreMes);
             String orden = "UPDATE contabilidad SET " +  nombreMes + " = " + pagado + " WHERE nombre = '" + nombre + "'";
 
                 try {
                     con = DriverManager.getConnection(URL, Usuario, Clave);
                     stmt = con.createStatement();
                     stmt.executeUpdate(orden);
-                    System.out.println("Contabilidad actualizada");
                 } catch (SQLException e) { 
                     System.out.println(e);
                     e.printStackTrace();

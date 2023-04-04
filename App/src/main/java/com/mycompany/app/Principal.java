@@ -56,6 +56,8 @@ public class Principal extends javax.swing.JFrame {
         CampoMeses = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         CampoPago = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        campoIntereses = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,6 +156,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel10.setText("Intereses por pagar:");
+
+        campoIntereses.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        campoIntereses.setText("--------------------------");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,6 +183,10 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(botonGestionar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
+                                    .addComponent(CampoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(botonPaga, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
                                         .addComponent(jLabel4)
@@ -183,9 +195,12 @@ public class Principal extends javax.swing.JFrame {
                                         .addComponent(jLabel6)
                                         .addComponent(jLabel11)
                                         .addComponent(jLabel1)
-                                        .addComponent(jLabel9))
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jButton1))
                                     .addGap(39, 39, 39)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(campoIntereses)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(campoPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(CampoMeses, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -195,14 +210,8 @@ public class Principal extends javax.swing.JFrame {
                                         .addComponent(campoTelTrabajo)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(campoDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(campoTelCasa, javax.swing.GroupLayout.Alignment.LEADING))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton1)
-                                        .addComponent(CampoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(botonPaga, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                                            .addComponent(campoTelCasa, javax.swing.GroupLayout.Alignment.LEADING))))))))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +221,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(inversionistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -246,16 +255,20 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(campoEstado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonPaga)
-                            .addComponent(CampoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel10)
+                            .addComponent(campoIntereses))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonPaga)
+                    .addComponent(CampoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGenerarDoc)
                     .addComponent(botonGestionar))
@@ -274,7 +287,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonGestionarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        funcionesPrincipal.MostrarInfo(listaClientes, campoNombre, campoDocumento, campoDireccion, campoTelCasa, campoTrabajo, campoTelTrabajo, campoPagar, CampoMeses, campoEstado);
+        funcionesPrincipal.MostrarInfo(listaClientes, campoNombre, campoDocumento, campoDireccion, campoTelCasa, campoTrabajo, campoTelTrabajo, campoPagar, CampoMeses, campoEstado, campoIntereses);
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void inversionistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inversionistasActionPerformed
@@ -289,7 +302,7 @@ public class Principal extends javax.swing.JFrame {
     private void botonPagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPagaActionPerformed
        ModuloPago pagar = new ModuloPago();
        pagar.pagar(campoPagar, CampoMeses, CampoPago, campoNombre);
-       pagar.mesPago(CampoPago, campoNombre);
+       //pagar.mesPago(CampoPago, campoNombre);
     }//GEN-LAST:event_botonPagaActionPerformed
 
     private void botonGenerarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarDocActionPerformed
@@ -343,6 +356,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel campoDireccion;
     private javax.swing.JLabel campoDocumento;
     private javax.swing.JLabel campoEstado;
+    private javax.swing.JLabel campoIntereses;
     private javax.swing.JLabel campoNombre;
     private javax.swing.JLabel campoPagar;
     private javax.swing.JLabel campoTelCasa;
@@ -351,6 +365,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> inversionistas;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -142,10 +142,11 @@ public class FuncionamientoAgregar {
 
         } catch (SQLException e) {e.printStackTrace();}
     }
+    
     void addCustomerCont(JTextField campoNombre, JTextField campoCedula){
         String nombre = campoNombre.getText();
         String customerId = campoCedula.getText();
-        
+        System.out.println("Agregando a contabilidad");
         String order = "INSERT INTO contabilidad (Nombre, Cedula, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre)"
                 + " VALUES ('" + nombre + "','" + customerId + "'," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 + "," + 0 +"," + 0 + "," + 0 + ")";
         funciones.ValidarDriver();
@@ -153,7 +154,6 @@ public class FuncionamientoAgregar {
             con = DriverManager.getConnection(URL, Usuario, Clave);
             stmt = con.createStatement();
             stmt.executeUpdate(order);
-            JOptionPane.showMessageDialog(null,"Cliente agregado correctamente","Agregar cliente", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException e) {e.printStackTrace();}
     }

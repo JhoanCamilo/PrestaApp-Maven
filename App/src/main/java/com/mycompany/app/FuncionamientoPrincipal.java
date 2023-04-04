@@ -76,10 +76,10 @@ public class FuncionamientoPrincipal {
 
         } catch (SQLException e) {}
     }
-    void MostrarInfo(JList<String> ListaClientes, JLabel CampoNombre, JLabel CampoDocumento, JLabel CampoDireccion, JLabel CampoTelCasa, JLabel CampoTrabajo, JLabel CampoTelTrabajo, JLabel CampoPagar, JLabel campoMeses, JLabel CampoEstado) {
+    void MostrarInfo(JList<String> ListaClientes, JLabel CampoNombre, JLabel CampoDocumento, JLabel CampoDireccion, JLabel CampoTelCasa, JLabel CampoTrabajo, JLabel CampoTelTrabajo, JLabel CampoPagar, JLabel campoMeses, JLabel CampoEstado, JLabel CampoIntereses) {
         
         String cliente = (String) ListaClientes.getSelectedValue();
-        String orden = "SELECT nombre, cedula, direccion, telefono, trabajo, telefono_trabajo, total_prestado, meses_debe, estado FROM clientes WHERE nombre = '" + cliente + "'";
+        String orden = "SELECT nombre, cedula, direccion, telefono, trabajo, telefono_trabajo, total_prestado, total_interes, meses_debe, estado FROM clientes WHERE nombre = '" + cliente + "'";
         
         try {
             con = DriverManager.getConnection(URL, Usuario, Clave);
@@ -96,6 +96,7 @@ public class FuncionamientoPrincipal {
                 CampoPagar.setText(rs.getString("total_prestado"));
                 campoMeses.setText(rs.getString("meses_debe"));
                 CampoEstado.setText(rs.getString("estado"));
+                CampoIntereses.setText(rs.getString("total_interes"));
             }
             
        } catch (SQLException e) {e.printStackTrace();}
@@ -188,7 +189,7 @@ public class FuncionamientoPrincipal {
         } else {
             diaPasado = dia - 1;
         }
-        String orden = "UPDATE clientes SET total_intereses = " + interesAcumulado + " WHERE dia_de_pago = " + diaPasado + " AND nombre = '" + nombre + "'";
+        String orden = "UPDATE clientes SET total_interes = " + interesAcumulado + " WHERE dia_de_pago = " + diaPasado + " AND nombre = '" + nombre + "'";
         System.out.println("Se sumaron intereses");
         try {
             cone = DriverManager.getConnection(URL, Usuario, Clave);
