@@ -76,10 +76,10 @@ public class FuncionamientoPrincipal {
 
         } catch (SQLException e) {}
     }
-    void MostrarInfo(JList<String> ListaClientes, JLabel CampoNombre, JLabel CampoDocumento, JLabel CampoDireccion, JLabel CampoTelCasa, JLabel CampoTrabajo, JLabel CampoTelTrabajo, JLabel CampoPagar, JLabel campoMeses, JLabel CampoEstado, JLabel CampoIntereses) {
+    void MostrarInfo(JList<String> ListaClientes, JLabel CampoNombre, JLabel CampoDocumento, JLabel CampoDireccion, JLabel CampoTelCasa, JLabel CampoTrabajo, JLabel CampoTelTrabajo, JLabel CampoPagar, JLabel campoMeses, JLabel CampoUltimoMes, JLabel CampoUltimoPago, JLabel CampoEstado, JLabel CampoIntereses) {
         
         String cliente = (String) ListaClientes.getSelectedValue();
-        String orden = "SELECT nombre, cedula, direccion, telefono, trabajo, telefono_trabajo, total_prestado, total_interes, meses_debe, estado FROM clientes WHERE nombre = '" + cliente + "'";
+        String orden ="SELECT nombre, cedula, direccion, telefono, trabajo, telefono_trabajo, total_prestado, total_interes, meses_debe, estado, mes_pagado, fecha_ultimo_pago FROM clientes WHERE nombre = '" + cliente + "'";
         
         try {
             con = DriverManager.getConnection(URL, Usuario, Clave);
@@ -94,6 +94,8 @@ public class FuncionamientoPrincipal {
                 CampoTrabajo.setText(rs.getString("trabajo"));
                 CampoTelTrabajo.setText(rs.getString("telefono_trabajo"));
                 CampoPagar.setText(rs.getString("total_prestado"));
+                CampoUltimoMes.setText(rs.getString("mes_pagado"));
+                CampoUltimoPago.setText(rs.getString("fecha_ultimo_pago"));
                 campoMeses.setText(rs.getString("meses_debe"));
                 CampoEstado.setText(rs.getString("estado"));
                 CampoIntereses.setText(rs.getString("total_interes"));
